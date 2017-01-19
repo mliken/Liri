@@ -34,55 +34,12 @@ if (choice == "my-tweets"){
 } else if (choice == "movie-this"){
 	callMovie();
 
-//} else if( choice == "do-what-it-says"){
-//	call doWhatItSays();
+} else if( choice == "do-what-it-says"){
+	call doWhatItSays();
 }
 }
 
-
-//loops through all command line inputs, and pushes all into new array
-// var title = process.argv.forEach(function(val, index) {
-//     entry.push(val);
-// });
-
-// //conditionals determine what command user chose
-// if (userChoice === 'my-tweets') {
-//     //run twitter feed API
-//     callTwitter();
-// } else if (userChoice === 'spotify-this-song') {
-//     //assign song variable from user's input in command line, starting from 4 position (contents gathered from entry array made in line 33)
-//     song = entry.splice(3).join(' ') //deletes array elements prior to position 4 and joins elements with a space.
-//         //run spotify function
-//     callSpotify();
-// } else if (userChoice === 'movie-this') {
-//     //assign movie name variable from user's input
-//     movieName = entry.splice(3).join('+'); //join with a plus sign because it's passed into API URL
-//     //run movie function for API
-//     callOMDB();
-// } else if (userChoice === 'do-what-it-says') {
-//     //if user chooses random command, read random.txt file, with utf8 format parameter
-//     fs.readFile('random.txt', 'utf8', function(error, data) {
-//         //create array of elements between the comma in the text string
-//         var randomChoice = data.split(',');
-//         //assign userChoice as the first element of array
-//         userChoice = randomChoice[0];
-//         //detect which liri command userChoice was. Run appropriate function as before
-//         switch (userChoice) {
-//             case 'my-tweets':
-//                 return callTwitter();
-//             case 'spotify-this-song':
-//                 song = randomChoice[1];
-//                 return callSpotify();
-//             case 'movie-this':
-//                 movieName = randomChoice[1];
-//                 return callMovie();
-//             default:
-//                 return console.log("Oops! Looks like nothing was picked. Try again!")
-//         }
-//     })
-
-
-    //function will pull 20 most recent tweets
+	//function will pull 20 most recent tweets
     //function tweets() {
     //	var client = new Twitter(require("./keys.js").twitterKeys);
     function callTwitter() {

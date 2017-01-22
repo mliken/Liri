@@ -24,7 +24,7 @@ userChoice();
 
 function userChoice(){
 
-
+// sorts what each user command/entry should do, and calls pertinent function accordingly
 if (choice == "my-tweets"){
 	myTweets();
 
@@ -37,7 +37,7 @@ if (choice == "my-tweets"){
 } else if( choice == "do-what-it-says"){
 	call doWhatItSays();
 }
-}
+}// end options
 
 	//function will pull 20 most recent tweets
     //function tweets() {
@@ -96,6 +96,39 @@ if (choice == "my-tweets"){
                 }
             });
 		}
+
+        // reads data search info from pre-existing text file named random.txt
+function doWhatItSays () {
+    // run read/write module. Reads data from text file
+    fs.readFile("random.txt", "utf-8", function(error, data) {
+        // splitting returned data array
+        var dataArr = data.split(",");
+        // console.log("dataArr: " + dataArr);
+        // console.log("array length: " + dataArr.length);
+
+        // do-while loops over text file contents. Selects array pair (aka key-value -> aka choice: title)
+        do {
+            // choice is the command to be executed: movie-this, spotify-this-song or my-tweets
+            choice = dataArr[0].trim();
+            // remove item from array: a command/choice
+            dataArr.splice(0,1);
+            // console.log("choice: " + choice);
+
+            // my-tweets does not have additional search arguments, executed for other two choices/commands
+            if (choice !== "my-tweets") {
+                // title is the movie or song to be searched
+                title = dataArr[0].trim();
+                // remove item from array: a song or movie title
+                dataArr.splice(0,1);
+                // console.log("title: " + title);
+            }
+
+            // calls relevant function according to command saved inside choice
+            options();
+        } while (dataArr.length > 0);
+
+    }); // end fs module
+} // end doWhatItSays function
 
 
 	

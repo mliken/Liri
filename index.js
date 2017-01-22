@@ -39,6 +39,74 @@ if (choice == "my-tweets"){
 }
 }// end options
 
+function callTwitter() {
+    // var twitter = require("twitter");
+    // retrieve client twitter keys
+    var client = new twitter({
+        consumer_key: myKeys.twitterKeys.consumer_key,
+        consumer_secret: myKeys.twitterKeys.consumer_secret,
+        access_token_key: myKeys.twitterKeys.consumer_access_token_key,
+        access_token_secret: myKeys.twitterKeys.consumer_access_token_secret
+    });
+
+    // twitter search parameters
+    var params = {
+        // tweets search set to specific twitter user screen name
+        screen_name: 'Likenyo',
+        // limits max tweets retrieved to 20
+        count: 20
+    }
+
+    // run tweeter module passing search parameter defined above in variable params
+    client.get('statuses/user_timeline', params, function(error, tweets, response) {
+        // if no error available tweets are displayed, will enumerate a max of 20 retrieved tweets
+        if (!error) {
+            // check for tweets posted availability
+            if (tweets.length == 0) {
+                console.log("===-------------------------------------------------===");
+                console.log("you have no tweets posted");
+                console.log("===-------------------------------------------------===");
+            } else {
+                console.log("===-------------------------------------------------===");
+                console.log("my " + tweets.length + " most recent tweets");
+                console.log("===-------------------------------------------------===");
+
+                // displays/appends a separator/title line on external log.txt file. Formatting purposes
+                var logSearchTitle = "\n\n===- My Tweets -===" +
+                                     "\n" + "Data retrieved on: " + new Date();
+                fs.appendFile("log.txt", logSearchTitle, function(err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+
+                // display tweets selected info
+                for (var i=0; i<tweets.length ; i++) {
+
+                    // displays data on terminal/bash window
+                    console.log("@ " + (i + 1) + " @");
+                    console.log("Added on: " + tweets[i].created_at);
+                    console.log("Tweet: " + tweets[i].text);
+                    console.log("-------------------------------------------------------");
+
+                    // displays/appends data response on external log.txt file
+                    var logIt = "\n\n" + (i + 1) + " Added on: " + tweets[i].created_at + "," +
+                                "\n  Tweet   : " + tweets[i].text + ",";
+                    fs.appendFile("log.txt", logIt, function(err) {
+                        if (err) {
+                            console.log(err);
+                        }
+                    }); // end append to file
+
+                } // end for loop
+
+                console.log("end of tweets");
+                console.log("===-------------------------------------------------===");
+            } // end check tweets availability
+        } // end if no error statement
+    }); // end client.get
+} // end function myTweets
+
 	//function will pull 20 most recent tweets
     //function tweets() {
     //	var client = new Twitter(require("./keys.js").twitterKeys);
@@ -46,7 +114,7 @@ if (choice == "my-tweets"){
         var client = new Twitter(require(".keys.js"));
 
         client.get('statuses/user_timeline')
-    }
+    } // end callTwitterfunction
 
     //function spotify-this-song 
     //instructions from API
@@ -66,7 +134,7 @@ if (choice == "my-tweets"){
             console.log("Preview Link: " + data.tracks.items[3].preview_url);
             console.log("Album: " + data.tracks.items[0].album.name);
         });
-    }
+    } // end callSpotifyfunction
 
         //function movie-this (Title, Year,Rating, Country, Language, Plot, Actors, RottenTomatoes, Rotten Tomatoes URL)
 
@@ -95,7 +163,7 @@ if (choice == "my-tweets"){
                     console.log("Rotten Tomatoes Metascore: " + returned.Metascore);
                 }
             });
-		}
+		} // end callMovie function
 
         // reads data search info from pre-existing text file named random.txt
 function doWhatItSays () {
